@@ -18,7 +18,10 @@ int main()
             break;
 
             case 3:
-            
+            exit(0);
+
+            default:
+            printf("Please Select Appropriate Service\n");
         }
     }
 }
