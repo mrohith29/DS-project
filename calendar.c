@@ -32,7 +32,7 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
         newtask->initial->month = month;
         newtask->initial->year = year;
         newtask->content = (char *)malloc(strlen((theme) + 1) * sizeof(char));
-        strcpy(start->content, theme);
+        strcpy(newtask->content, theme);
         newtask->next = newtask->prev = NULL;
         return newtask;
     }
@@ -55,7 +55,7 @@ void main()
 {
 
     int date, month, year, hours, min, option;
-    char theme[100];
+    char theme[10000];
     while (1)
     {
         printf("*****TODAY'S DATE   ");
@@ -79,6 +79,7 @@ void main()
             fgets(theme, sizeof(theme), stdin);
             // printf("%d  %d  %d  %d  %d \n", date, month, year, hours, min);
             // printf("%s\n", theme);
+            // theme[strcspn(theme, "\n")] = '\0'; 
             start = AddTask(start, date, month, year, hours, min, theme);
             break;
 
