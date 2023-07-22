@@ -51,6 +51,34 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
     return start;
 }
 
+// struct task *TaskDisplay(struct task *start)
+// {
+//     if(start == NULL)
+//     {
+//         printf("You have no tasks to do\n");
+//         return start;
+//     }
+//     else if(start->prev != NULL)
+//     {
+//         printf("%d\n",start->content);
+//     }
+//     else if(start->next !=)
+// }
+
+
+void InOrderTraversal(struct task *root) {
+    if (root != NULL) {
+        InOrderTraversal(root->prev);
+        printf("%d/%d/%d %02d:%02d - %s\n", root->initial->Date, root->initial->month, root->initial->year, root->initial->hours, root->initial->minutes, root->content);
+        InOrderTraversal(root->next);
+    }
+}
+
+struct task *TaskDisplay(struct task *start) {
+    InOrderTraversal(start);
+    return start;
+}
+
 void main()
 {
 
@@ -83,7 +111,12 @@ void main()
             start = AddTask(start, date, month, year, hours, min, theme);
             break;
 
+
         case 2:
+            TaskDisplay(start);
+        break;
+
+        case 5:
         exit(0);
 
         default:
