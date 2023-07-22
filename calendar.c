@@ -15,9 +15,42 @@ struct task
     struct task *next;
 }*start = NULL;
 
+struct task *AddTask()
+{
+
+}
+
+
 void main()
 {
-    printf(__DATE__);
-    printf("\n");
-    printf(__TIME__);
+
+    int date, month, year, hours, minutes, option; 
+    while(1)
+    {
+        printf("*****TODAY'S DATE   ");
+        printf(__DATE__);
+        printf("******");
+        printf("\n");
+        printf("*****NOW TIME IS    ");
+        printf(__TIME__);
+        printf("*****\n");
+
+        scanf("%d",&option);
+        switch(option)
+        {
+            case 1: 
+            scanf("%d",&date);
+            scanf("%d",&month);
+            scanf("%d",&year);
+            scanf("%d",&hours);
+            scanf("%d",&minutes);
+                start = AddTask(start, date, hours, minutes);
+
+            break;
+        }
+
+
+    }
+
+    
 }
