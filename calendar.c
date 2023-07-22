@@ -1,27 +1,23 @@
 // need to do some basic operations done using calender 
 #include<stdio.h>
 #include<stdlib.h>
-int main()
+
+struct task
 {
-    int option;
-    while(1)
+    struct date
     {
-        scanf("%d",&option);
-        switch(option)
-        {
-            case 1:
-            add();
-            break;
+        int date;
+        int hours;
+        int minutes;
+    };
+    char content;
+    struct task *prev;
+    struct task *next;
+}*start = NULL;
 
-            case 2:
-            search();
-            break;
-
-            case 3:
-            exit(0);
-
-            default:
-            printf("Please Selectl Appropriate Service\n"); 
-        }
-    }
+void main()
+{
+    printf(__DATE__);
+    printf("\n");
+    printf(__TIME__);
 }
