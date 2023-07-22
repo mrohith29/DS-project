@@ -26,8 +26,26 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
     {
         struct task *newtask = (struct task *)malloc(sizeof(struct task));
         newtask->initial = (struct time *)malloc(sizeof(struct time));
-        
+        newtask->initial->Date = date;
+        newtask->initial->hours = hours;
+        newtask->initial->minutes = min;
+        newtask->initial->month = month;
+        newtask->initial->year = year;
+        newtask->content = (char *)malloc(strlen((theme)+1)*sizeof(char));
+        strcpy(start->content, theme);
+        newtask->next = newtask->prev = NULL;
+        return newtask;
     }
+    else if (year < start->initial->year || (year == start->initial->year && month < start->initial->month) ||
+        (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours < start->initial->hours) ||
+        (year == start->initial->year && month == start->initial->month && date < start->initial->Date) ||
+        (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min < start->initial->minutes)) {
+        start->prev = AddTask(start->prev, date, month, year, hours, min, theme);
+    } else {
+        start->next = AddTask(start->next, date, month, year, hours, min, theme);
+    }
+
+    return ;
 }
 
 
