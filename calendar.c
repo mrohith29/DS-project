@@ -66,7 +66,7 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
 {
     if (start == NULL)
     {
-        printf("No task to delete\n");
+        printf("\n\n\t\t*******Sorry You Don't Have Any TASK to Delete on %d/%d/%d %02d:%02d******\t\t\n\n", date, month, year, hours, min);
         return NULL;
     }
     else if ((year < start->initial->year ||
@@ -128,13 +128,13 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
     }
 }
 
-void InOrderTraversal(struct task *root)
+void InOrderTraversal(struct task *start)
 {
-    if (root != NULL)
+    if (start != NULL)
     {
-        InOrderTraversal(root->prev);
-        printf("%d/%d/%d %02d:%02d - %s\n", root->initial->Date, root->initial->month, root->initial->year, root->initial->hours, root->initial->minutes, root->content);
-        InOrderTraversal(root->next);
+        InOrderTraversal(start->prev);
+        printf("%d/%d/%d %02d:%02d - %s\n", start->initial->Date, start->initial->month, start->initial->year, start->initial->hours, start->initial->minutes, start->content);
+        InOrderTraversal(start->next);
     }
 }
 
@@ -151,6 +151,11 @@ void main()
     char theme[10000];
     while (1)
     {
+        printf("WELCOME TO OUR CALENDAR APPLICATION\n\n");
+        printf("please select the service you want\n\
+                ***PRESS 1*** to add task\n\
+                ***PRESS 2*** to display your tasks\n\
+                ***PRESS 3*** to delete any task\n\n\n");
         printf("*****TODAY'S DATE   ");
         printf(__DATE__);
         printf("******");
@@ -163,25 +168,47 @@ void main()
         switch (option)
         {
         case 1:
+            printf("Please enter the DATE on which you want to schedule\n");
             scanf("%d", &date);
+            printf("Please enter the MONTH(in number i.e., 1-12) on which you want to schedule\n");
             scanf("%d", &month);
+            printf("Please enter the YEAR(in format xxxx) on which you want to schedule\n");
             scanf("%d", &year);
+            printf("Please enter the HOURS at which you want to schedule\n");
+            printf("***please use 24 hours clock time(i.e., 0-23)***\n");
             scanf("%d", &hours);
+            printf("Please enter the MINUTES(i.e., 0-59) at which you want to schedule\n");
             scanf("%d", &min);
             getchar();
+            printf("please enter the TASK to schedule at the provided time\n");
             fgets(theme, sizeof(theme), stdin);
             start = AddTask(start, date, month, year, hours, min, theme);
+            printf("\t\t******TASK SCHEDULED SUCCESSFULLY******\t\t\n\n");
             break;
 
         case 2:
             TaskDisplay(start);
+            if (start == NULL)
+            {
+                printf("\n\n\t\t***Sorry, You Don't Have Any Tasks scheduled to Display***\n\n");
+            }
+            else
+            {
+                printf("\t\t****YOUR LIST OF TASKS ARE****\t\t\n");
+            }
             break;
 
         case 3:
+            printf("Please enter the DATE of task to delete\n");
             scanf("%d", &date);
+            printf("Please enter the MONTH(in number i.e., 1-12) of task to delete\n");
             scanf("%d", &month);
+            printf("Please enter the YEAR(in format xxxx) of task to delete\n");
             scanf("%d", &year);
+            printf("Please enter the HOURS of task to delete\n");
+            printf("***please use 24 hours clock time(i.e., 0-23)***\n");
             scanf("%d", &hours);
+            printf("Please enter the MINUTES(i.e., 0-59) of task to delete\n");
             scanf("%d", &min);
             start = TaskDelete(start, date, month, year, hours, min);
             break;
