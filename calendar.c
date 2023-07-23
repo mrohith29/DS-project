@@ -36,9 +36,10 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
         newtask->next = newtask->prev = NULL;
         return newtask;
     }
-    else if (year < start->initial->year || (year == start->initial->year && month < start->initial->month) ||
-             (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours < start->initial->hours) ||
+    else if (year < start->initial->year ||
+             (year == start->initial->year && month < start->initial->month) ||
              (year == start->initial->year && month == start->initial->month && date < start->initial->Date) ||
+             (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours < start->initial->hours) ||
              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min < start->initial->minutes))
     {
         start->prev = AddTask(start->prev, date, month, year, hours, min, theme);
@@ -54,7 +55,7 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
 struct task *rightmin(struct task *start)
 {
     struct task *current = start;
-    while(current->prev != NULL)
+    while (current->prev != NULL)
     {
         current = current->prev;
     }
@@ -63,21 +64,23 @@ struct task *rightmin(struct task *start)
 
 struct task *TaskDelete(struct task *start, int date, int month, int year, int hours, int min)
 {
-    if(start == NULL)
+    if (start == NULL)
     {
         printf("No task to delete\n");
         return NULL;
     }
-    else if((year < start->initial->year || (year == start->initial->year && month < start->initial->month) ||
-             (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours < start->initial->hours) ||
-             (year == start->initial->year && month == start->initial->month && date < start->initial->Date) ||
-             (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min < start->initial->minutes)))
-             {
-                start->prev = TaskDelete(start->prev, date, month, year, hours, min);
-             }
-    else if((year > start->initial->year || (year == start->initial->year && month > start->initial->month) ||
-              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours > start->initial->hours) ||
+    else if ((year < start->initial->year ||
+              (year == start->initial->year && month < start->initial->month) ||
+              (year == start->initial->year && month == start->initial->month && date < start->initial->Date) ||
+              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours < start->initial->hours) ||
+              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min < start->initial->minutes)))
+    {
+        start->prev = TaskDelete(start->prev, date, month, year, hours, min);
+    }
+    else if ((year > start->initial->year ||
+              (year == start->initial->year && month > start->initial->month) ||
               (year == start->initial->year && month == start->initial->month && date > start->initial->Date) ||
+              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours > start->initial->hours) ||
               (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min > start->initial->minutes)))
     {
         start->next = TaskDelete(start->next, date, month, year, hours, min);
@@ -86,14 +89,14 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
     {
         struct task *temp = start;
 
-        if((start->prev == NULL) && (start->next == NULL))
+        if ((start->prev == NULL) && (start->next == NULL))
         {
             free(start->initial);
             free(start->content);
             free(start);
-            return NULL; 
+            return NULL;
         }
-        else if(start->prev == NULL)
+        else if (start->prev == NULL)
         {
             start = start->next;
             free(temp->content);
@@ -101,7 +104,7 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
             free(temp);
             return start;
         }
-        else if(start->next == NULL)
+        else if (start->next == NULL)
         {
             start = start->prev;
             free(temp->content);
@@ -117,7 +120,7 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
             start->initial->year = Rightmin->initial->year;
             start->initial->hours = Rightmin->initial->hours;
             start->initial->minutes = Rightmin->initial->minutes;
-            start->content = realloc(start->content, strlen(Rightmin->content)+1);
+            start->content = realloc(start->content, strlen(Rightmin->content) + 1);
             strcpy(start->content, Rightmin->content);
             start->next = TaskDelete(start->next, Rightmin->initial->Date, Rightmin->initial->month, Rightmin->initial->year, Rightmin->initial->hours, Rightmin->initial->minutes);
             return start;
@@ -125,16 +128,18 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
     }
 }
 
-
-void InOrderTraversal(struct task *root) {
-    if (root != NULL) {
+void InOrderTraversal(struct task *root)
+{
+    if (root != NULL)
+    {
         InOrderTraversal(root->prev);
         printf("%d/%d/%d %02d:%02d - %s\n", root->initial->Date, root->initial->month, root->initial->year, root->initial->hours, root->initial->minutes, root->content);
         InOrderTraversal(root->next);
     }
 }
 
-struct task *TaskDisplay(struct task *start) {
+struct task *TaskDisplay(struct task *start)
+{
     InOrderTraversal(start);
     return start;
 }
@@ -168,10 +173,9 @@ void main()
             start = AddTask(start, date, month, year, hours, min, theme);
             break;
 
-
         case 2:
             TaskDisplay(start);
-        break;
+            break;
 
         case 3:
             scanf("%d", &date);
@@ -183,11 +187,11 @@ void main()
             break;
 
         case 5:
-        exit(0);
+            exit(0);
 
         default:
-        printf("Enter a Valid operation\n");
-        break;
+            printf("Enter a Valid operation\n");
+            break;
         }
     }
 }
