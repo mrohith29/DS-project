@@ -51,6 +51,15 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
     return start;
 }
 
+struct task *rightmin(struct task *start)
+{
+    struct task *current = start;
+    while(current->prev != NULL)
+    {
+        current = current->prev;
+    }
+    return current;
+}
 
 struct task *TaskDelete(struct task *start, int date, int month, int year, int hours, int min)
 {
@@ -87,9 +96,33 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
         else if(start->prev == NULL)
         {
             start = start->next;
-            
+            free(temp->content);
+            free(temp->initial);
+            free(temp);
+            return start;
+        }
+        else if(start->next == NULL)
+        {
+            start = start->prev;
+            free(temp->content);
+            free(temp->initial);
+            free(temp);
+            return start;
+        }
+        else
+        {
+            struct task *Rightmin = rightmin(start->next);
+            start->initial->Date = Rightmin->initial->Date;
+            start->initial->month = Rightmin->initial->month;
+            start->initial->year = Rightmin->initial->year;
+            start->initial->hours = Rightmin->initial->hours;
+            start->initial->minutes = Rightmin->initial->minutes;
+            start->content = realloc(start->content, strlen(Rightmin->content)+1);
+            strcpy(start->content, Rightmin->content);
+            start->next = TaskDelete(start->next, Rightmin->initial->Date, Rightmin->initial->month, Rightmin->initial->year, Rightmin->initial->hours, Rightmin->initial->minutes);
         }
     }
+    return start;
 }
 
 
@@ -132,9 +165,6 @@ void main()
             scanf("%d", &min);
             getchar();
             fgets(theme, sizeof(theme), stdin);
-            // printf("%d  %d  %d  %d  %d \n", date, month, year, hours, min);
-            // printf("%s\n", theme);
-            // theme[strcspn(theme, "\n")] = '\0'; 
             start = AddTask(start, date, month, year, hours, min, theme);
             break;
 
@@ -144,6 +174,11 @@ void main()
         break;
 
         case 3:
+            scanf("%d", &date);
+            scanf("%d", &month);
+            scanf("%d", &year);
+            scanf("%d", &hours);
+            scanf("%d", &min);
             TaskDelete(start, date, month, year, hours, min);
             break;
 
