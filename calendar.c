@@ -51,20 +51,6 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
     return start;
 }
 
-// struct task *TaskDisplay(struct task *start)
-// {
-//     if(start == NULL)
-//     {
-//         printf("You have no tasks to do\n");
-//         return start;
-//     }
-//     else if(start->prev != NULL)
-//     {
-//         printf("%d\n",start->content);
-//     }
-//     else if(start->next !=)
-// }
-
 
 struct task *TaskDelete(struct task *start, int date, int month, int year, int hours, int min)
 {
@@ -80,11 +66,30 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
              {
                 start->prev = TaskDelete(start->prev, date, month, year, hours, min);
              }
-    else if()
+    else if((year > start->initial->year || (year == start->initial->year && month > start->initial->month) ||
+              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours > start->initial->hours) ||
+              (year == start->initial->year && month == start->initial->month && date > start->initial->Date) ||
+              (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min > start->initial->minutes)))
     {
         start->next = TaskDelete(start->next, date, month, year, hours, min);
     }
-    
+    else
+    {
+        struct task *temp = start;
+
+        if((start->prev == NULL) && (start->next == NULL))
+        {
+            free(start->initial);
+            free(start->content);
+            free(start);
+            return NULL; 
+        }
+        else if(start->prev == NULL)
+        {
+            start = start->next;
+            
+        }
+    }
 }
 
 
