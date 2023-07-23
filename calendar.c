@@ -66,6 +66,28 @@ struct task *AddTask(struct task *start, int date, int month, int year, int hour
 // }
 
 
+struct task *TaskDelete(struct task *start, int date, int month, int year, int hours, int min)
+{
+    if(start == NULL)
+    {
+        printf("No task to delete\n");
+        return NULL;
+    }
+    else if((year < start->initial->year || (year == start->initial->year && month < start->initial->month) ||
+             (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours < start->initial->hours) ||
+             (year == start->initial->year && month == start->initial->month && date < start->initial->Date) ||
+             (year == start->initial->year && month == start->initial->month && date == start->initial->Date && hours == start->initial->hours && min < start->initial->minutes)))
+             {
+                start->prev = TaskDelete(start->prev, date, month, year, hours, min);
+             }
+    else if()
+    {
+        start->next = TaskDelete(start->next, date, month, year, hours, min);
+    }
+    
+}
+
+
 void InOrderTraversal(struct task *root) {
     if (root != NULL) {
         InOrderTraversal(root->prev);
@@ -115,6 +137,10 @@ void main()
         case 2:
             TaskDisplay(start);
         break;
+
+        case 3:
+            TaskDelete(start, date, month, year, hours, min);
+            break;
 
         case 5:
         exit(0);
