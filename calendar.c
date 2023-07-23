@@ -120,9 +120,9 @@ struct task *TaskDelete(struct task *start, int date, int month, int year, int h
             start->content = realloc(start->content, strlen(Rightmin->content)+1);
             strcpy(start->content, Rightmin->content);
             start->next = TaskDelete(start->next, Rightmin->initial->Date, Rightmin->initial->month, Rightmin->initial->year, Rightmin->initial->hours, Rightmin->initial->minutes);
+            return start;
         }
     }
-    return start;
 }
 
 
@@ -179,7 +179,7 @@ void main()
             scanf("%d", &year);
             scanf("%d", &hours);
             scanf("%d", &min);
-            TaskDelete(start, date, month, year, hours, min);
+            start = TaskDelete(start, date, month, year, hours, min);
             break;
 
         case 5:
