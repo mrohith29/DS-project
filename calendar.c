@@ -1,4 +1,4 @@
-// need to do some basic operations done using calender
+// need to do some basic operations done using calender.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
