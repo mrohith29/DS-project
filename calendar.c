@@ -187,7 +187,6 @@ void main()
             break;
 
         case 2:
-            TaskDisplay(start);
             if (start == NULL)
             {
                 printf("\n\n\t\t***Sorry, You Don't Have Any Tasks scheduled to Display***\n\n");
@@ -195,6 +194,7 @@ void main()
             else
             {
                 printf("\t\t****YOUR LIST OF TASKS ARE****\t\t\n");
+                TaskDisplay(start);
             }
             break;
 
