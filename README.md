@@ -135,4 +135,5 @@ please select the service you want
 
 
 *****TODAY'S DATE   <current_date> ******
+
 *****NOW TIME IS    <current_time> ******
