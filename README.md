@@ -16,7 +16,7 @@ The Calendar Application provides a simple text-based interface to perform vario
 *Below is an example of how you can use the Calendar Application:*
 
 <pre>
-'''
+
 WELCOME TO OUR CALENDAR APPLICATION
 
 please select the service you want
@@ -141,5 +141,4 @@ please select the service you want
 
 *****NOW TIME IS    <current_time> ******
 
-'''
 </pre>
