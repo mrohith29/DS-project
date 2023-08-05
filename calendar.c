@@ -3,6 +3,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define WHITE "\033[37m"
+
+#define B_RED "\033[41m"
+#define B_GREEN "\033[42m"
+#define B_YELLOW "\033[43m"
+#define B_BLUE "\033[44m"
+#define B_MAGENTA "\033[45m"
+#define B_CYAN "\033[46m"
+#define B_WHITE "\033[47m"
+
 struct time
 {
     int month;
@@ -153,9 +170,10 @@ void main()
     {
         printf("WELCOME TO OUR CALENDAR APPLICATION\n\n");
         printf("please select the service you want\n\
-                ***PRESS 1*** to add task\n\
-                ***PRESS 2*** to display your tasks\n\
-                ***PRESS 3*** to delete any task\n\n\n");
+                \033[32m***PRESS 1*** to add task\n\033[0m\
+                \033[34m***PRESS 2*** to display your tasks\n\033[0m\
+                \033[31m***PRESS 3*** to delete any task\n\n\n\033[0m");
+        printf(RESET);
         printf("*****TODAY'S DATE   ");
         printf(__DATE__);
         printf("******");
@@ -189,36 +207,52 @@ void main()
             fgets(theme, sizeof(theme), stdin);
             system("cls");
             start = AddTask(start, date, month, year, hours, min, theme);
+            printf(B_GREEN);
             printf("\t\t******TASK SCHEDULED SUCCESSFULLY******\t\t\n\n");
+            printf(RESET);
             break;
 
         case 2:
             if (start == NULL)
             {
+                printf(B_YELLOW);
                 printf("\n\n\t\t***Sorry, You Don't Have Any Tasks scheduled to Display***\n\n");
+                printf(RESET);
             }
             else
             {
+                printf(B_GREEN);
                 printf("\t\t****YOUR LIST OF TASKS ARE****\t\t\n");
+                printf(RESET);
                 TaskDisplay(start);
             }
             break;
 
         case 3:
+            printf(GREEN);
             printf("Please enter the DATE of task to delete\n");
+            printf(RESET);
             scanf("%d", &date);
             system("cls");
+            printf(GREEN);
             printf("Please enter the MONTH(in number i.e., 1-12) of task to delete\n");
+            printf(RESET);
             scanf("%d", &month);
             system("cls");
+            printf(GREEN);
             printf("Please enter the YEAR(in format xxxx) of task to delete\n");
+            printf(RESET);
             scanf("%d", &year);
             system("cls");
+            printf(GREEN);
             printf("Please enter the HOURS of task to delete\n");
             printf("***please use 24 hours clock time(i.e., 0-23)***\n");
+            printf(RESET);
             scanf("%d", &hours);
             system("cls");
+            printf(GREEN);
             printf("Please enter the MINUTES(i.e., 0-59) of task to delete\n");
+            printf(RESET);
             scanf("%d", &min);
             system("cls");
             start = TaskDelete(start, date, month, year, hours, min);
@@ -229,7 +263,9 @@ void main()
 
         default:
             system("cls");
+            printf(RED);
             printf("Enter a Valid operation\n");
+            printf(RESET);
             break;
         }
     }
