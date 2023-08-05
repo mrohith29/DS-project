@@ -170,18 +170,24 @@ void main()
         case 1:
             printf("Please enter the DATE on which you want to schedule\n");
             scanf("%d", &date);
+            system("cls");
             printf("Please enter the MONTH(in number i.e., 1-12) on which you want to schedule\n");
             scanf("%d", &month);
+            system("cls");
             printf("Please enter the YEAR(in format xxxx) on which you want to schedule\n");
             scanf("%d", &year);
+            system("cls");
             printf("Please enter the HOURS at which you want to schedule\n");
             printf("***please use 24 hours clock time(i.e., 0-23)***\n");
             scanf("%d", &hours);
+            system("cls");
             printf("Please enter the MINUTES(i.e., 0-59) at which you want to schedule\n");
             scanf("%d", &min);
+            system("cls");
             getchar();
             printf("please enter the TASK to schedule at the provided time\n");
             fgets(theme, sizeof(theme), stdin);
+            system("cls");
             start = AddTask(start, date, month, year, hours, min, theme);
             printf("\t\t******TASK SCHEDULED SUCCESSFULLY******\t\t\n\n");
             break;
@@ -201,15 +207,20 @@ void main()
         case 3:
             printf("Please enter the DATE of task to delete\n");
             scanf("%d", &date);
+            system("cls");
             printf("Please enter the MONTH(in number i.e., 1-12) of task to delete\n");
             scanf("%d", &month);
+            system("cls");
             printf("Please enter the YEAR(in format xxxx) of task to delete\n");
             scanf("%d", &year);
+            system("cls");
             printf("Please enter the HOURS of task to delete\n");
             printf("***please use 24 hours clock time(i.e., 0-23)***\n");
             scanf("%d", &hours);
+            system("cls");
             printf("Please enter the MINUTES(i.e., 0-59) of task to delete\n");
             scanf("%d", &min);
+            system("cls");
             start = TaskDelete(start, date, month, year, hours, min);
             break;
 
@@ -217,6 +228,7 @@ void main()
             exit(0);
 
         default:
+            system("cls");
             printf("Enter a Valid operation\n");
             break;
         }
